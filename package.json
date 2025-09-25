@@ -4,18 +4,30 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android:release": "react-native run-android --variant=release",
     "ios": "react-native run-ios",
+    "ios:release": "react-native run-ios --configuration Release",
     "start": "react-native start",
+    "start:reset": "react-native start --reset-cache",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "clean": "react-native-clean-project"
+    "clean": "npx react-native-clean-project",
+    "clean:android": "cd android && ./gradlew clean",
+    "clean:ios": "cd ios && rm -rf build && xcodebuild clean",
+    "setup": "npm install && cd ios && pod install && cd ..",
+    "dev:android": "npm run start:reset & npm run android",
+    "dev:ios": "npm run start:reset & npm run ios",
+    "postinstall": "cd ios && pod install"
   },
   "dependencies": {
     "react": "18.3.1",
-    "react-native": "0.75.3"
+    "react-native": "0.75.3",
+    "react-native-config": "^1.5.9"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
@@ -26,7 +38,6 @@
     "@react-native/eslint-config": "0.75.3",
     "@react-native/metro-config": "0.75.3",
     "@react-native/typescript-config": "0.75.3",
-    "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.6.3",
     "eslint": "^8.57.1",
